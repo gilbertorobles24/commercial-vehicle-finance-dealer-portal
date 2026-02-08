@@ -26,7 +26,7 @@ Dealer-facing prototype for commercial vehicle financing — built with modern e
 - GitHub Actions CI/CD (build, test, lint, Docker build)
 
 ## Project Structure (monorepo — recommended for prototype)
-
+```
 .
 ├── backend/
 │   ├── dealer-service/
@@ -37,3 +37,10 @@ Dealer-facing prototype for commercial vehicle financing — built with modern e
 ├── infra/                    # docker-compose, k8s manifests, helm (later)
 ├── docs/                     # ADR, architecture diagrams
 └── .github/workflows/        # CI/CD
+```
+## Getting Started
+
+```bash
+git clone https://github.com/YOUR_USERNAME/commercial-vehicle-finance-dealer-portal.git
+cd commercial-vehicle-finance-dealer-portal
+docker compose up -d
