@@ -44,6 +44,7 @@ Dealer-facing prototype for commercial vehicle financing — built with modern e
 git clone https://github.com/YOUR_USERNAME/commercial-vehicle-finance-dealer-portal.git
 cd commercial-vehicle-finance-dealer-portal
 docker compose up -d
+```
 
 ## Core Domain Story
 
