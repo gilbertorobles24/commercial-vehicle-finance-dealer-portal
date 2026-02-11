@@ -1,3 +1,11 @@
+package com.dealerfinance.loan.domain;
+
+import jakarta.persistence.*;
+import lombok.*;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data @NoArgsConstructor @AllArgsConstructor
 public class LoanApplication {

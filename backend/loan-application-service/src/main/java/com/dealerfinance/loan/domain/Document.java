@@ -1,3 +1,8 @@
+package com.dealerfinance.loan.domain;
+
+import jakarta.persistence.*;
+import lombok.*;
+
 @Entity
 @Data @NoArgsConstructor @AllArgsConstructor
 public class Document {

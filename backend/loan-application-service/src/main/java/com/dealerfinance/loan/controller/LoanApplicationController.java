@@ -1,3 +1,16 @@
+package com.dealerfinance.loan.controller;
+
+import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import lombok.RequiredArgsConstructor;
+import java.util.List;
+
+import com.dealerfinance.loan.domain.LoanApplication;
+import com.dealerfinance.loan.dto.LoanApplicationDTO;           // your DTO package
+import com.dealerfinance.loan.repository.LoanApplicationRepository;
+import com.dealerfinance.loan.mapper.LoanApplicationMapper;
+
 @RestController
 @RequestMapping("/api/applications")
 @RequiredArgsConstructor
