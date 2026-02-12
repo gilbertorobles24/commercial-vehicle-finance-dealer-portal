@@ -1,6 +1,6 @@
 # Commercial Vehicle Finance Dealer Portal
 
-Dealer-facing prototype for commercial vehicle financing — built with modern event-driven microservices.
+I designed a domain-driven commercial lending platform with event-driven workflow, secure dealer-bound data ownership, audit trails, and extensible microservice-ready architecture. I structured it to evolve toward Kafka-based event processing and CQRS.
 
 ## Tech Stack (CQRS-lite + Event Sourcing influences)
 

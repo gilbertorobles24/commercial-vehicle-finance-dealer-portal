@@ -1,4 +1,4 @@
-package com.dealerfinance.loan.domain;
+package com.dealerfinance.loan.domain.model;
 
 import jakarta.persistence.*;
 import lombok.*;

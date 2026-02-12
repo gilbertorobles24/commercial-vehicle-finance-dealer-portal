@@ -1,16 +1,19 @@
-package com.dealerfinance.loan.dto;
+package com.dealerfinance.loan.application.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoanApplicationDTO {
+@ToString
+@EqualsAndHashCode
+public class LoanApplicationResponse {
+
     private Long id;
     private Long dealerId;
     private String vehicleType;
