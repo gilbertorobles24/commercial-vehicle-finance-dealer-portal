@@ -25,19 +25,6 @@ I designed a domain-driven commercial lending platform with event-driven workflo
 - OpenAPI docs + SpringDoc
 - GitHub Actions CI/CD (build, test, lint, Docker build)
 
-## Project Structure (monorepo — recommended for prototype)
-```
-.
-├── backend/
-│   ├── dealer-service/
-│   ├── credit-decision-service/
-│   ├── contract-service/
-│   └── shared/               # shared libraries, events, DTOs
-├── frontend/                 # Nuxt 3 app
-├── infra/                    # docker-compose, k8s manifests, helm (later)
-├── docs/                     # ADR, architecture diagrams
-└── .github/workflows/        # CI/CD
-```
 ## Getting Started
 
 ```bash

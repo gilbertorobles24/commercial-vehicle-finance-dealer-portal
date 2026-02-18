@@ -3,11 +3,15 @@ package com.dealerfinance.loan.interfaces.rest;
 import com.dealerfinance.loan.application.dto.request.CreateLoanApplicationRequest;
 import com.dealerfinance.loan.application.dto.response.LoanApplicationResponse;
 import com.dealerfinance.loan.application.service.LoanApplicationService;
+import com.dealerfinance.loan.config.CustomUserDetails;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -29,24 +33,23 @@ public class LoanApplicationController {
     private final LoanApplicationService service;
 
     // ────────────────────────────────────────────────
-    //  GET /api/applications
-    //  List applications (filtered by dealer later)
+    // GET /api/applications
+    // List applications (filtered by dealer later)
     // ────────────────────────────────────────────────
     @GetMapping
+    @PreAuthorize("hasRole('DEALER')")
     public ResponseEntity<List<LoanApplicationResponse>> listApplications(
-            @AuthenticationPrincipal UserDetails user) {
+            JwtAuthenticationToken authToken) {
 
-        // TODO: extract dealerId from user context
-        Long dealerId = 1L; // placeholder
+        CustomUserDetails user = CustomUserDetails.from(authToken);
+        Long dealerId = user.getDealerId();
 
-        List<LoanApplicationResponse> applications = service.findAllForDealer(dealerId);
-
-        return ResponseEntity.ok(applications);
+        return ResponseEntity.ok(service.findAllForDealer(dealerId));
     }
 
     // ────────────────────────────────────────────────
-    //  GET /api/applications/{id}
-    //  Get single application by ID
+    // GET /api/applications/{id}
+    // Get single application by ID
     // ────────────────────────────────────────────────
     @GetMapping("/{id}")
     public ResponseEntity<LoanApplicationResponse> getApplicationById(
@@ -60,26 +63,28 @@ public class LoanApplicationController {
     }
 
     // ────────────────────────────────────────────────
-    //  POST /api/applications
-    //  Create new loan application
+    // POST /api/applications
+    // Create new loan application
     // ────────────────────────────────────────────────
     @PostMapping
+    @PreAuthorize("hasRole('DEALER')")
     public ResponseEntity<LoanApplicationResponse> createApplication(
             @Valid @RequestBody CreateLoanApplicationRequest request,
-            @AuthenticationPrincipal UserDetails user) {
+            JwtAuthenticationToken authToken) { // ← Spring Security provides this
 
-        Long dealerId = 1L; // TODO: extract from user context
+        CustomUserDetails user = CustomUserDetails.from(authToken);
+        Long dealerId = user.getDealerId();
 
         LoanApplicationResponse created = service.createApplication(request, dealerId);
 
-        URI location = URI.create("/api/applications/" + created.getId());
-
-        return ResponseEntity.created(location).body(created);
+        return ResponseEntity
+                .created(URI.create("/api/applications/" + created.getId()))
+                .body(created);
     }
 
     // ────────────────────────────────────────────────
-    //  PUT /api/applications/{id}
-    //  Full update (replace entire resource)
+    // PUT /api/applications/{id}
+    // Full update (replace entire resource)
     // ────────────────────────────────────────────────
     @PutMapping("/{id}")
     public ResponseEntity<LoanApplicationResponse> updateApplication(
@@ -94,8 +99,8 @@ public class LoanApplicationController {
     }
 
     // ────────────────────────────────────────────────
-    //  DELETE /api/applications/{id}
-    //  Delete application (soft or hard, depending on business)
+    // DELETE /api/applications/{id}
+    // Delete application (soft or hard, depending on business)
     // ────────────────────────────────────────────────
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteApplication(
